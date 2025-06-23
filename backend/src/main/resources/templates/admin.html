@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Employee list</title>
+</head>
+<body>
+    <h1>Employees</h1>
+    <table>
+        <thead>
+        <tr>
+            <td>Email</td>
+            <td>First Name</td>
+            <td>Last Name</td>
+            <td>Role</td>
+        </tr>
+        </thead>
+        <tbody id="employeeTableBody">
+
+        </tbody>
+    </table>
+
+    <script>
+        fetch('api/employees', {
+            method: 'GET',
+            headers: {
+                'Authorization': 'Basic ' + btoa('matata@gmail.com:fweueiuhfe')
+            }
+        }).then(data => {
+            const tableBody = document.getElementById('employeeTableBody');
+            data.forEach(employee => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${employee.email}</td>
+                    <td>${employee.name}</td>
+                    <td>${employee.role}</td>
+                `;
+                tableBody.appendChild(row);
+            });
+        })
+        .catch(error => {
+            alert(error.message);
+        });
+    </script>
+</body>
+</html>
